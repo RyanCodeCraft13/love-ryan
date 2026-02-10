@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,20 +7,19 @@
 
 <style>
 body{
- margin:0;
- font-family:Arial, sans-serif;
- overflow:hidden;
- display:flex;
- justify-content:center;
- align-items:center;
- height:100vh;
- color:white;
- text-align:center;
- background:linear-gradient(-45deg,#ff4b6e,#ff758c,#ff7eb3,#ff9a9e);
- background-size:400% 400%;
- animation:bgmove 12s ease infinite;
+margin:0;
+font-family:Arial;
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+color:white;
+text-align:center;
+background:linear-gradient(-45deg,#ff4b6e,#ff758c,#ff7eb3,#ff9a9e);
+background-size:400% 400%;
+animation:bgmove 12s ease infinite;
 }
-
 @keyframes bgmove{
 0%{background-position:0% 50%;}
 50%{background-position:100% 50%;}
@@ -28,97 +27,137 @@ body{
 }
 
 .card{
- position:relative;
- background:rgba(0,0,0,0.35);
- padding:30px;
- border-radius:20px;
- width:90%;
- max-width:420px;
- backdrop-filter:blur(10px);
- box-shadow:0 0 30px rgba(255,255,255,0.3);
- z-index:2;
+background:rgba(0,0,0,0.35);
+padding:25px;
+border-radius:20px;
+width:90%;
+max-width:420px;
+backdrop-filter:blur(10px);
+box-shadow:0 0 30px rgba(255,255,255,0.3);
+z-index:2;
 }
 
 button{
- padding:12px 20px;
- border:none;
- border-radius:10px;
- background:white;
- color:#ff4b6e;
- font-weight:bold;
- cursor:pointer;
- margin-top:15px;
+padding:10px 18px;
+border:none;
+border-radius:10px;
+background:white;
+color:#ff4b6e;
+font-weight:bold;
+cursor:pointer;
+margin:8px;
 }
 
-#message{
- margin-top:15px;
- min-height:60px;
+img{
+width:100%;
+border-radius:15px;
+margin-top:10px;
 }
 
-/* hearts */
-.heart{
- position:absolute;
- top:-10px;
- font-size:20px;
- animation:fall linear forwards;
+.heart,.petal{
+position:absolute;
+top:-10px;
+animation:fall linear forwards;
 }
 
 @keyframes fall{
- to{
- transform:translateY(110vh);
- opacity:0;
- }
+to{
+transform:translateY(110vh);
+opacity:0;
+}
 }
 </style>
 </head>
 
 <body>
 
-<!-- MUSIC -->
 <audio id="bgmusic" loop>
 <source src="music.mp3" type="audio/mpeg">
 </audio>
 
 <div class="card">
-<h1>Happy Valentine's 💖</h1>
-<p>Hi Mahal, I made this just for you 😘</p>
+<h2>Happy Valentine's 💖</h2>
+<p>Hi Love, this is only for you 😘</p>
 
 <button onclick="startLove()">Open My Heart 💌</button>
 
 <p id="message"></p>
+
+<img id="slideshow" src="photo1.jpg">
+
+<div id="proposal" style="display:none;">
+<p>Will you be my forever Valentine? 💘</p>
+<button onclick="yesLove()">YES ❤️</button>
+<button id="noBtn" onmouseover="moveNo()">NO 😅</button>
+</div>
+
+<p id="result"></p>
 </div>
 
 <script>
 
 const text="You are my happiness, my peace, and my forever ❤️ Thank you for loving me always 💕 I love you so much 😘";
-let index=0;
+let i=0;
 
 function startLove(){
- document.getElementById("bgmusic").play();
- typeText();
+document.getElementById("bgmusic").play();
+typeText();
+document.getElementById("proposal").style.display="block";
 }
 
 function typeText(){
- if(index<text.length){
-  document.getElementById("message").innerHTML+=text.charAt(index);
-  index++;
-  setTimeout(typeText,40);
- }
+if(i<text.length){
+document.getElementById("message").innerHTML+=text.charAt(i);
+i++;
+setTimeout(typeText,40);
+}
 }
 
-/* falling hearts generator */
-function createHeart(){
- const heart=document.createElement("div");
- heart.classList.add("heart");
- heart.innerHTML="❤️";
- heart.style.left=Math.random()*100+"vw";
- heart.style.animationDuration=(Math.random()*3+3)+"s";
- document.body.appendChild(heart);
-
- setTimeout(()=>{heart.remove();},6000);
+function yesLove(){
+document.getElementById("result").innerHTML="Yaaay 😍 I love you forever ❤️";
 }
 
-setInterval(createHeart,300);
+function moveNo(){
+const btn=document.getElementById("noBtn");
+btn.style.position="absolute";
+btn.style.left=Math.random()*80+"%";
+btn.style.top=Math.random()*80+"%";
+}
+
+/* slideshow */
+const photos=["photo1.jpg","photo2.jpg","photo3.jpg"];
+let p=0;
+setInterval(()=>{
+p=(p+1)%photos.length;
+document.getElementById("slideshow").src=photos[p];
+},3000);
+
+/* hearts */
+function heart(){
+const h=document.createElement("div");
+h.className="heart";
+h.innerHTML="❤️";
+h.style.left=Math.random()*100+"vw";
+h.style.fontSize=(15+Math.random()*20)+"px";
+h.style.animationDuration=(3+Math.random()*3)+"s";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),6000);
+}
+
+/* petals */
+function petal(){
+const r=document.createElement("div");
+r.className="petal";
+r.innerHTML="🌹";
+r.style.left=Math.random()*100+"vw";
+r.style.fontSize=(15+Math.random()*20)+"px";
+r.style.animationDuration=(4+Math.random()*4)+"s";
+document.body.appendChild(r);
+setTimeout(()=>r.remove(),7000);
+}
+
+setInterval(heart,300);
+setInterval(petal,700);
 
 </script>
 
