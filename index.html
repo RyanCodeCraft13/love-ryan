@@ -20,6 +20,7 @@ background:linear-gradient(-45deg,#ff4b6e,#ff758c,#ff7eb3,#ff9a9e);
 background-size:400% 400%;
 animation:bgmove 12s ease infinite;
 }
+
 @keyframes bgmove{
 0%{background-position:0% 50%;}
 50%{background-position:100% 50%;}
@@ -34,7 +35,13 @@ width:90%;
 max-width:420px;
 backdrop-filter:blur(10px);
 box-shadow:0 0 30px rgba(255,255,255,0.3);
-z-index:2;
+animation:heartbeat 2s infinite;
+}
+
+@keyframes heartbeat{
+0%{transform:scale(1);}
+50%{transform:scale(1.03);}
+100%{transform:scale(1);}
 }
 
 button{
@@ -45,7 +52,7 @@ background:white;
 color:#ff4b6e;
 font-weight:bold;
 cursor:pointer;
-margin:8px;
+margin:6px;
 }
 
 img,video{
@@ -80,7 +87,9 @@ opacity:0;
 <p>Hi Love, this is only for you 😘</p>
 
 <button onclick="startLove()">Open My Heart 💌</button>
+<button onclick="nightMode()">🌙 Romantic Mode</button>
 
+<p id="days"></p>
 <p id="message"></p>
 
 <img id="slideshow" src="photo1.jpeg">
@@ -119,7 +128,9 @@ setTimeout(typeText,40);
 }
 
 function yesLove(){
-document.getElementById("result").innerHTML="Yaaay 😍 I love you forever ❤️";
+document.getElementById("result").innerHTML="I love you more every day 😘❤️";
+confetti();
+navigator.vibrate?.(200);
 }
 
 function moveNo(){
@@ -127,6 +138,10 @@ const btn=document.getElementById("noBtn");
 btn.style.position="absolute";
 btn.style.left=Math.random()*80+"%";
 btn.style.top=Math.random()*80+"%";
+}
+
+function nightMode(){
+document.body.style.background="linear-gradient(-45deg,#1a1a2e,#16213e,#0f3460)";
 }
 
 /* slideshow */
@@ -163,6 +178,53 @@ setTimeout(()=>r.remove(),7000);
 
 setInterval(heart,300);
 setInterval(petal,700);
+
+/* confetti */
+function confetti(){
+for(let i=0;i<30;i++){
+const c=document.createElement("div");
+c.innerHTML="💖";
+c.style.position="absolute";
+c.style.left=Math.random()*100+"vw";
+c.style.top="0";
+c.style.fontSize="20px";
+c.style.animation="fall 3s linear forwards";
+document.body.appendChild(c);
+setTimeout(()=>c.remove(),3000);
+}
+}
+
+/* floating love message */
+document.addEventListener("click",()=>{
+const msg=document.createElement("div");
+msg.innerHTML="I Love You ❤️";
+msg.style.position="absolute";
+msg.style.left=Math.random()*90+"vw";
+msg.style.top=Math.random()*90+"vh";
+msg.style.fontSize="18px";
+document.body.appendChild(msg);
+setTimeout(()=>msg.remove(),2000);
+});
+
+/* days together */
+const start=new Date("2024-02-14");
+const today=new Date();
+const diff=Math.floor((today-start)/(1000*60*60*24));
+document.getElementById("days").innerHTML=
+"We've loved each other for "+diff+" days ❤️";
+
+/* random love messages */
+const reasons=[
+"You are my safe place ❤️",
+"Your smile makes my day ☀️",
+"You are my home 💕",
+"I choose you every day 💖"
+];
+
+setInterval(()=>{
+document.getElementById("result").innerHTML=
+reasons[Math.floor(Math.random()*reasons.length)];
+},8000);
 
 </script>
 
