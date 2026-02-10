@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Valentine's ❤️</title>
+
+<style>
+body{
+  margin:0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg,#ff758c,#ff7eb3);
+  color:white;
+  text-align:center;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+
+.card{
+  background:rgba(0,0,0,0.3);
+  padding:30px;
+  border-radius:20px;
+  width:90%;
+  max-width:400px;
+  box-shadow:0 0 20px rgba(0,0,0,0.3);
+}
+
+button{
+  padding:12px 20px;
+  border:none;
+  border-radius:10px;
+  background:white;
+  color:#ff4b6e;
+  font-weight:bold;
+  cursor:pointer;
+  margin-top:15px;
+}
+
+.hidden{
+  display:none;
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 Background Music -->
+<audio id="bgmusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<div class="card">
+<h1>Happy Valentine's 💖</h1>
+<p>Hi Love, this website is only for you 😘</p>
+
+<button onclick="startLove()">Click Me 💌</button>
+
+<p id="message" class="hidden">
+You are my happiness, my peace, my everything ❤️  
+Thank you for loving me always 💕  
+I love you so much 😘
+</p>
+</div>
+
+<script>
+function startLove(){
+  document.getElementById("message").classList.remove("hidden");
+  document.getElementById("bgmusic").play();
+}
+</script>
+
+</body>
+</html>
