@@ -7,97 +7,106 @@
 
 <style>
 body{
-  margin:0;
-  font-family: Arial, sans-serif;
-  overflow:hidden;
-  color:white;
-  text-align:center;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
-  background: linear-gradient(-45deg,#ff4b6e,#ff758c,#ff7eb3,#ff9a9e);
-  background-size:400% 400%;
-  animation: gradientMove 10s ease infinite;
+ margin:0;
+ font-family:Arial, sans-serif;
+ overflow:hidden;
+ display:flex;
+ justify-content:center;
+ align-items:center;
+ height:100vh;
+ color:white;
+ text-align:center;
+ background:linear-gradient(-45deg,#ff4b6e,#ff758c,#ff7eb3,#ff9a9e);
+ background-size:400% 400%;
+ animation:bgmove 12s ease infinite;
 }
 
-/* moving gradient */
-@keyframes gradientMove{
+@keyframes bgmove{
 0%{background-position:0% 50%;}
 50%{background-position:100% 50%;}
 100%{background-position:0% 50%;}
 }
 
 .card{
-  position:relative;
-  background:rgba(0,0,0,0.35);
-  padding:30px;
-  border-radius:20px;
-  width:90%;
-  max-width:400px;
-  backdrop-filter:blur(10px);
-  box-shadow:0 0 25px rgba(255,255,255,0.3);
-  z-index:2;
+ position:relative;
+ background:rgba(0,0,0,0.35);
+ padding:30px;
+ border-radius:20px;
+ width:90%;
+ max-width:420px;
+ backdrop-filter:blur(10px);
+ box-shadow:0 0 30px rgba(255,255,255,0.3);
+ z-index:2;
 }
 
 button{
-  padding:12px 20px;
-  border:none;
-  border-radius:10px;
-  background:white;
-  color:#ff4b6e;
-  font-weight:bold;
-  cursor:pointer;
-  margin-top:15px;
+ padding:12px 20px;
+ border:none;
+ border-radius:10px;
+ background:white;
+ color:#ff4b6e;
+ font-weight:bold;
+ cursor:pointer;
+ margin-top:15px;
 }
 
-.hidden{
-  display:none;
+#message{
+ margin-top:15px;
+ min-height:60px;
 }
 
-/* falling hearts */
+/* hearts */
 .heart{
-  position:absolute;
-  top:-10px;
-  color:white;
-  font-size:20px;
-  animation: fall linear forwards;
+ position:absolute;
+ top:-10px;
+ font-size:20px;
+ animation:fall linear forwards;
 }
 
 @keyframes fall{
-  to{
-    transform:translateY(110vh);
-    opacity:0;
-  }
+ to{
+ transform:translateY(110vh);
+ opacity:0;
+ }
 }
 </style>
 </head>
 
 <body>
 
+<!-- MUSIC -->
 <audio id="bgmusic" loop>
-  <source src="music.mp3" type="audio/mpeg">
+<source src="music.mp3" type="audio/mpeg">
 </audio>
 
 <div class="card">
 <h1>Happy Valentine's 💖</h1>
-<p>Hi Love, this is only for you 😘</p>
+<p>Hi Mahal, I made this just for you 😘</p>
 
-<button onclick="startLove()">Click Me 💌</button>
+<button onclick="startLove()">Open My Heart 💌</button>
 
-<p id="message" class="hidden">
-You are my happiness and my forever ❤️  
-Thank you for loving me always 💕
-</p>
+<p id="message"></p>
 </div>
 
 <script>
+
+const text="You are my happiness, my peace, and my forever ❤️ Thank you for loving me always 💕 I love you so much 😘";
+let index=0;
+
 function startLove(){
- document.getElementById("message").classList.remove("hidden");
  document.getElementById("bgmusic").play();
+ typeText();
 }
 
-/* generate falling hearts */
+function typeText(){
+ if(index<text.length){
+  document.getElementById("message").innerHTML+=text.charAt(index);
+  index++;
+  setTimeout(typeText,40);
+ }
+}
+
+/* falling hearts generator */
 function createHeart(){
  const heart=document.createElement("div");
  heart.classList.add("heart");
@@ -110,6 +119,7 @@ function createHeart(){
 }
 
 setInterval(createHeart,300);
+
 </script>
 
 </body>
