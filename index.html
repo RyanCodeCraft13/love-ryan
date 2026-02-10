@@ -9,22 +9,35 @@
 body{
   margin:0;
   font-family: Arial, sans-serif;
-  background: linear-gradient(135deg,#ff758c,#ff7eb3);
+  overflow:hidden;
   color:white;
   text-align:center;
   display:flex;
   justify-content:center;
   align-items:center;
   height:100vh;
+  background: linear-gradient(-45deg,#ff4b6e,#ff758c,#ff7eb3,#ff9a9e);
+  background-size:400% 400%;
+  animation: gradientMove 10s ease infinite;
+}
+
+/* moving gradient */
+@keyframes gradientMove{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
 }
 
 .card{
-  background:rgba(0,0,0,0.3);
+  position:relative;
+  background:rgba(0,0,0,0.35);
   padding:30px;
   border-radius:20px;
   width:90%;
   max-width:400px;
-  box-shadow:0 0 20px rgba(0,0,0,0.3);
+  backdrop-filter:blur(10px);
+  box-shadow:0 0 25px rgba(255,255,255,0.3);
+  z-index:2;
 }
 
 button{
@@ -41,34 +54,62 @@ button{
 .hidden{
   display:none;
 }
+
+/* falling hearts */
+.heart{
+  position:absolute;
+  top:-10px;
+  color:white;
+  font-size:20px;
+  animation: fall linear forwards;
+}
+
+@keyframes fall{
+  to{
+    transform:translateY(110vh);
+    opacity:0;
+  }
+}
 </style>
 </head>
 
 <body>
 
-<!-- 🎵 Background Music -->
 <audio id="bgmusic" loop>
   <source src="music.mp3" type="audio/mpeg">
 </audio>
 
 <div class="card">
 <h1>Happy Valentine's 💖</h1>
-<p>Hi Love, this website is only for you 😘</p>
+<p>Hi Love, this is only for you 😘</p>
 
 <button onclick="startLove()">Click Me 💌</button>
 
 <p id="message" class="hidden">
-You are my happiness, my peace, my everything ❤️  
-Thank you for loving me always 💕  
-I love you so much 😘
+You are my happiness and my forever ❤️  
+Thank you for loving me always 💕
 </p>
 </div>
 
 <script>
 function startLove(){
-  document.getElementById("message").classList.remove("hidden");
-  document.getElementById("bgmusic").play();
+ document.getElementById("message").classList.remove("hidden");
+ document.getElementById("bgmusic").play();
 }
+
+/* generate falling hearts */
+function createHeart(){
+ const heart=document.createElement("div");
+ heart.classList.add("heart");
+ heart.innerHTML="❤️";
+ heart.style.left=Math.random()*100+"vw";
+ heart.style.animationDuration=(Math.random()*3+3)+"s";
+ document.body.appendChild(heart);
+
+ setTimeout(()=>{heart.remove();},6000);
+}
+
+setInterval(createHeart,300);
 </script>
 
 </body>
