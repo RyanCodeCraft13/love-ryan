@@ -53,10 +53,16 @@ cursor:pointer;
 margin:6px;
 }
 
-img,video{
+img{
 width:100%;
 border-radius:15px;
 margin-top:10px;
+box-shadow:0 0 20px rgba(255,255,255,0.4);
+transition:.4s;
+}
+
+img:hover{
+transform:scale(1.03);
 }
 
 .heart,.petal{
@@ -105,10 +111,6 @@ z-index:10;
 
 <img id="slideshow" src="photo1.jpeg">
 
-<video id="loveVideo" muted loop playsinline controls>
-<source src="video.mp4" type="video/mp4">
-</video>
-
 <div id="proposal" style="display:none;">
 <p>Will you be my forever Valentine? 💘</p>
 <button onclick="yesLove()">YES ❤️</button>
@@ -129,8 +131,7 @@ const text="Every moment with you feels like magic ❤️ You are my today, my t
 let i=0;
 
 function startLove(){
-document.getElementById("music").play();
-document.getElementById("loveVideo").play();
+document.getElementById("music").play().catch(()=>{});
 typeText();
 document.getElementById("proposal").style.display="block";
 }
