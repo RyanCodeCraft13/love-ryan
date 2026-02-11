@@ -99,7 +99,7 @@ z-index:10;
 </div>
 
 <audio id="music" loop>
-<source src="My Valentine Only My LoveNew Love Romantic  English (Lyrics) Songs 2026 3.mp3" type="audio/mpeg">
+<source src="music.mp3" type="audio/mpeg">
 </audio>
 
 <div class="card">
@@ -161,13 +161,24 @@ function nightMode(){
 document.body.style.background="linear-gradient(#0f2027,#203a43,#2c5364)";
 }
 
-/* slideshow */
-const photos=["photo1.jpeg","IMG_8870.jpeg","photo3.jpeg","IMG_7659.jpeg","IMG_5435.jpeg"];
+/* slideshow FIXED */
+const photos=[
+"photo1.jpeg",
+"IMG_8870.jpeg",
+"photo3.jpeg",
+"IMG_7659.jpeg",
+"IMG_5435.jpeg"
+];
+
 let p=0;
 setInterval(()=>{
 p=(p+1)%photos.length;
 document.getElementById("slideshow").src=photos[p];
 },3000);
+
+document.getElementById("slideshow").onerror=function(){
+this.src="photo1.jpeg";
+}
 
 /* falling hearts */
 function heart(){
@@ -222,14 +233,14 @@ document.body.appendChild(msg);
 setTimeout(()=>msg.remove(),2000);
 });
 
-/* days together (Started August 29, 2019) */
+/* days together */
 const start=new Date("2019-08-29");
 const today=new Date();
 const diff=Math.floor((today-start)/(1000*60*60*24));
 document.getElementById("days").innerHTML=
 "We've loved each other for "+diff+" days ❤️";
 
-/* random compliments */
+/* compliments */
 const reasons=[
 "You are my universe 🌌",
 "My favorite person forever 💕",
